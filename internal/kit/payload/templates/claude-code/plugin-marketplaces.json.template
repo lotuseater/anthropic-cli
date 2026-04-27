@@ -1,0 +1,32 @@
+{
+  "_wizard_kit": {
+    "doc": "Reference shape for ~/.claude/plugins/known_marketplaces.json. The kit does NOT auto-merge this into the live file — it is owned by the Claude Code plugin runtime, and merges are best done via the documented `claude plugin marketplace add` CLI. Use the helper at scripts/add-local-marketplaces.ps1 to register these locally."
+  },
+
+  "_recommended_entries": {
+    "claude-plugins-official": {
+      "source": {
+        "source": "github",
+        "repo": "anthropics/claude-plugins-official"
+      },
+      "_local_clone_hint": "C:\\Users\\Oleh\\Documents\\GitHub\\Antropic\\claude-plugins-official",
+      "_note": "Already registered on this PC. Listed here for parity / fresh installs."
+    },
+
+    "anthropic-skills": {
+      "source": {
+        "source": "github",
+        "repo": "anthropics/skills"
+      },
+      "_local_clone_hint": "C:\\Users\\Oleh\\Documents\\GitHub\\Antropic\\skills",
+      "_note": "Not registered today. Adds 17 first-party skills (claude-api, mcp-builder, skill-creator, doc handlers, theme-factory, etc.) once added via `claude plugin marketplace add anthropics/skills`."
+    }
+  },
+
+  "_apply_via_cli": [
+    "claude plugin marketplace add anthropics/claude-plugins-official",
+    "claude plugin marketplace add anthropics/skills"
+  ],
+
+  "_apply_via_helper": "pwsh -File scripts/add-local-marketplaces.ps1"
+}
