@@ -1,0 +1,53 @@
+<!-- wizard-kit:agents-md BEGIN — managed by ant kit / install-claude-kit.ps1 -->
+# Wizard Kit additions (Codex)
+
+The Wizard Kit (anthropic-cli `docs/wizard/`) is installed on this machine.
+Honour the following alongside any existing AGENTS.md content.
+
+## Conversation index
+
+The auto-generated section below indexes recent Codex sessions by mtime. Read
+it before re-discovering prior work. The index is regenerated on every kit
+install/rollback.
+
+<!-- wizard-kit:session-index BEGIN — regenerated; do not edit by hand -->
+<!-- One line per session in ~/.codex/sessions/. Format:
+     - [Session topic](../sessions/<file>.jsonl) — one-line hook (YYYY-MM-DD HH:MM)
+     The installer rebuilds this section idempotently. Edit your own
+     entries above the BEGIN marker or below the END marker. -->
+<!-- wizard-kit:session-index END -->
+
+## Signal-bus opt-ins
+
+If `WIZARD_PWSH_CONTROL=1` is set and the wizard PowerShell fork is on PATH,
+prefer the signal bus over OCR / polling:
+
+- `Read-WizardSignal -Topic process.heartbeat` instead of repeated
+  screenshots of a launching app.
+- `Read-WizardSignal -Topic cognitive.pulse` to fetch the current pulse body
+  when needed (when signal-mode pulse is enabled in Wizard_Erasmus).
+
+## Skill triggers
+
+Five wizard-kit skills are installed under `~/.codex/skills/`:
+
+| Skill | Use when |
+|-------|----------|
+| `conversation-forensics` | mining prior Codex conversations on this PC |
+| `resume-interrupted-work` | continuing a session interrupted by reboot / time gap |
+| `research-to-md` | research-only deliverables, no code changes |
+| `live-runtime-triage` | something running on this PC misbehaving; inspect before edit |
+| `verified-delivery` | end-to-end test → focused commits → push |
+
+Trigger only on the matching shapes described in each skill's `description`
+field, not as catch-all defaults.
+
+## Tool preferences
+
+- `Get-AIContext`, `Find-Code`, `Find-Repos`, `Find-CodeAcrossRepos` —
+  bounded ripgrep alternatives via the wizard PowerShell module.
+- `Invoke-Bounded` for any subprocess whose output might exceed 16 KB or run
+  longer than 120 s.
+- `Read-WizardSignal` over OCR / polling.
+
+<!-- wizard-kit:agents-md END -->

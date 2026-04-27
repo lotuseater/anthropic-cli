@@ -1,0 +1,24 @@
+{
+  "_wizard_kit": {
+    "doc": "C++ / Wizard_Erasmus family per-project allowlist. Drop into <project>/.claude/settings.local.json. The installer auto-detects C++ projects by CMakeLists.txt presence."
+  },
+  "permissions": {
+    "allow": [
+      "Bash(cmake -S*)",
+      "Bash(cmake --build*)",
+      "Bash(cmake --install*)",
+      "Bash(ctest*)",
+      "Bash(ninja*)",
+      "Bash(make*)",
+      "Bash(./build/*)",
+      "Bash(./build_msvc/*)",
+      "Bash(clangd*)",
+      "Bash(clang-tidy*)",
+      "Bash(clang-format*)",
+      "Bash(py -3.14 -m wizard_mcp.*)",
+      "Bash(py -3.14 -m pytest*)",
+      "Bash(./scripts/build*)",
+      "Bash(./scripts/test*)"
+    ]
+  }
+}

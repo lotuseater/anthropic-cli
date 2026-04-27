@@ -1,0 +1,46 @@
+<!-- wizard-kit:claude-md BEGIN — managed by ant kit / install-claude-kit.ps1 -->
+# Wizard Kit additions
+
+The Wizard Kit (anthropic-cli `docs/wizard/`) is installed on this machine.
+Honour the following alongside any existing CLAUDE.md content.
+
+## Memory and plan index
+
+`~/.claude/memory/MEMORY.md` contains an auto-generated plan index built from
+`~/.claude/plans/`. Read it before re-discovering prior work via filesystem
+walk. The index is regenerated on every kit install/rollback.
+
+## Signal-bus opt-ins
+
+If `WIZARD_PWSH_CONTROL=1` is set and the wizard PowerShell fork is on PATH,
+prefer the signal bus over OCR / polling:
+
+- Use `Read-WizardSignal -Topic process.heartbeat` instead of repeated
+  `dab_screenshot` of a launching app.
+- Use `Read-WizardSignal -Topic cognitive.pulse` to fetch the current pulse
+  body when needed (when signal-mode pulse is enabled in Wizard_Erasmus).
+
+## Skill triggers
+
+Five wizard-kit skills are installed under `~/.claude/skills/`:
+
+| Skill | Use when |
+|-------|----------|
+| `conversation-forensics` | mining prior Claude conversations on this PC |
+| `resume-interrupted-work` | continuing a session interrupted by reboot / time gap |
+| `research-to-md` | research-only deliverables, no code changes |
+| `live-runtime-triage` | something running on this PC misbehaving; inspect before edit |
+| `verified-delivery` | end-to-end test → focused commits → push |
+
+These are not catch-all defaults; trigger only on the matching shapes
+described in each skill's `description` field.
+
+## Tool preferences
+
+- `mcp__wizard__smart_test` over raw `pytest` / `npm test` invocations.
+- `mcp__wizard__analyze_git_diff` is **mandatory** before any `git commit`.
+- `Get-AIContext` for slicing large files instead of full `Read`.
+- `Find-Code`, `Find-Repos`, `Find-CodeAcrossRepos` over raw `rg` when
+  ripgrep matches need to be bounded.
+
+<!-- wizard-kit:claude-md END -->

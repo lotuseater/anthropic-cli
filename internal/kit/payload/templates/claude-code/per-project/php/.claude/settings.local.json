@@ -1,0 +1,23 @@
+{
+  "_wizard_kit": {
+    "doc": "PHP / SlavaTask family per-project allowlist. Drop into <project>/.claude/settings.local.json. The installer auto-detects PHP projects by composer.json presence."
+  },
+  "permissions": {
+    "allow": [
+      "Bash(composer install*)",
+      "Bash(composer update*)",
+      "Bash(composer dump-autoload*)",
+      "Bash(composer require*)",
+      "Bash(composer test*)",
+      "Bash(php artisan*)",
+      "Bash(php -S*)",
+      "Bash(php vendor/bin/*)",
+      "Bash(./vendor/bin/phpunit*)",
+      "Bash(./vendor/bin/phpstan*)",
+      "Bash(./vendor/bin/php-cs-fixer*)",
+      "Bash(npm run dev*)",
+      "Bash(npm run build*)",
+      "Bash(php -r*)"
+    ]
+  }
+}

@@ -1,0 +1,37 @@
+## Wizard Kit Codex CLI config deltas
+##
+## The installer TOML-merges this into ~/.codex/config.toml. Top-level tables
+## are deep-merged; arrays are unioned (deduplicated). The `[_wizard_kit]`
+## block is stripped before write.
+
+[_wizard_kit]
+version = "0.1.0"
+doc = "Codex CLI deltas. Edits below merge into ~/.codex/config.toml."
+
+[wizard_kit]
+installed_version = "0.1.0"
+
+## Wrapper integration. The wizard PowerShell fork (WIZARD_PWSH_CONTROL=1)
+## already routes the bare `claude` command through claude_cli_wrapper.py.
+## A symmetric Codex hook is defined here for parity.
+[wizard_kit.routing]
+route_codex_through_wrapper = true
+wrapper_module = "wizard_mcp.codex_cli_wrapper"
+kill_switch_env = "WIZARD_CODEX_ROUTE_V2"
+
+## Matcher narrowing for visual verify (parallel to Claude Code template).
+## Only fire OCR-based runtime checks for commands that change visible state.
+[wizard_kit.visual_verify]
+enabled = true
+matcher_regex = "^(npm|yarn|pnpm|cargo|go build|go test|go run|make|pytest|jest|dotnet|build|test|migrate|push|deploy|install|rm|chmod|mv|cp -r)\\b"
+timeout_seconds = 12
+
+## Cognitive pulse — when signal-mode patch is in place upstream, prefer it.
+[wizard_kit.cognitive_pulse]
+mode = "signal"            # "signal" | "inject"; signal mode requires Wizard_Erasmus patch
+fallback_to_inject = true  # safe degrade if the patch isn't present
+
+## Stop-event guard chain.
+[wizard_kit.stop_chain]
+short_circuit = true
+block_signal_topic = "wizard.stop.blocked"

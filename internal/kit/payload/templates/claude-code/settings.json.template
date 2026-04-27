@@ -1,0 +1,83 @@
+{
+  "_wizard_kit": {
+    "version": "0.1.0",
+    "doc": "Wizard Kit settings deltas. The installer deep-merges this into ~/.claude/settings.json. Hook arrays are matched by 'matcher'+'wizard_kit_id' to update in place rather than duplicating. Remove any entry below to skip applying that delta. The '_wizard_kit' block itself is stripped before write."
+  },
+
+  "permissions": {
+    "skipAutoPermissionPrompt": true,
+    "allow": [
+      "Bash(pwsh -File scripts/install-claude-kit.ps1*)",
+      "Bash(go build ./...)",
+      "Bash(go test ./...)",
+      "Bash(./ant kit*)",
+      "Bash(ant kit*)",
+      "Bash(Invoke-Bounded*)",
+      "Bash(Publish-WizardSignal*)",
+      "Bash(Read-WizardSignal*)",
+      "Bash(Get-WizardSession*)",
+      "Bash(Get-AIContext*)",
+      "Bash(Find-Code*)",
+      "Bash(Find-Repos*)",
+      "Bash(Invoke-RepoBuild*)",
+      "Bash(Invoke-RepoTest*)",
+      "Bash(Get-RepoProfile*)"
+    ]
+  },
+
+  "hooks": {
+    "PostToolUse": [
+      {
+        "wizard_kit_id": "visual_verify_narrowed",
+        "matcher": "Bash(npm*|yarn*|pnpm*|cargo*|go build*|go test*|go run*|make*|pytest*|jest*|dotnet*|build*|test*|migrate*|push*|deploy*|install*|rm*|chmod*|mv*|cp -r*)|^smart_*|^dab_(click|smart_click|send_keys|run|navigate)*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "py -3.14 -m wizard_mcp.hooks.visual_verify_hook",
+            "timeout": 12
+          }
+        ],
+        "_wizard_kit_note": "Replaces the broad PostToolUse=*Bash* matcher. Limits visual verify (12s OCR budget) to commands that can change visible state. Read-only commands (ls, cat, echo, git log) skip OCR entirely."
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "wizard_kit_id": "cognitive_pulse_signal_mode",
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "py -3.14 -m wizard_mcp.hooks.cognitive_pulse_hook --signal-mode",
+            "timeout": 5,
+            "_wizard_kit_note": "Pass --signal-mode so the hook publishes to the cognitive.pulse signal-bus topic instead of injecting a 10-20 KB block into the prompt. Requires Wizard_Erasmus signal-mode patch (lever #2). If patch not present, the flag is ignored and behaviour falls back to inject-mode."
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "wizard_kit_id": "stop_chain_short_circuit",
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "py -3.14 -m wizard_mcp.hooks.stop_chain_check --topic wizard.stop.blocked",
+            "timeout": 1,
+            "_wizard_kit_note": "Pre-flight hook checks the wizard.stop.blocked signal first. If a prior guard in this Stop event already blocked, downstream guards exit early. Requires Wizard_Erasmus stop-chain patch (lever #9)."
+          }
+        ]
+      }
+    ]
+  },
+
+  "wizard_kit_meta": {
+    "_doc": "Marker so the kit can detect prior installs without parsing the manifest separately. Updated by every install/rollback. Do not edit manually.",
+    "installed_version": "0.1.0",
+    "managed_keys": [
+      "permissions.allow",
+      "hooks.PostToolUse[wizard_kit_id=visual_verify_narrowed]",
+      "hooks.UserPromptSubmit[wizard_kit_id=cognitive_pulse_signal_mode]",
+      "hooks.Stop[wizard_kit_id=stop_chain_short_circuit]"
+    ]
+  }
+}

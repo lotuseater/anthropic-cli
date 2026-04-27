@@ -1,0 +1,24 @@
+{
+  "_wizard_kit": {
+    "doc": "Python / Serial_to_Google_Doc family per-project allowlist. Drop into <project>/.claude/settings.local.json. The installer auto-detects Python projects by pyproject.toml or requirements.txt presence."
+  },
+  "permissions": {
+    "allow": [
+      "Bash(py -3.14*)",
+      "Bash(python -m pip*)",
+      "Bash(pip install*)",
+      "Bash(pip-compile*)",
+      "Bash(uv pip*)",
+      "Bash(uv run*)",
+      "Bash(poetry install*)",
+      "Bash(poetry run*)",
+      "Bash(pytest*)",
+      "Bash(ruff check*)",
+      "Bash(ruff format*)",
+      "Bash(black*)",
+      "Bash(mypy*)",
+      "Bash(./venv/Scripts/*)",
+      "Bash(./.venv/Scripts/*)"
+    ]
+  }
+}
