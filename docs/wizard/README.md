@@ -19,6 +19,10 @@ two installers (PowerShell + an in-tree `ant kit` Go subcommand).
 | [03-improvement-catalog.md](03-improvement-catalog.md) | Ten ranked levers with problem / proposed change / saving / effort / owner repo. |
 | [04-distribution-strategy.md](04-distribution-strategy.md) | Why this repo is the distribution home, asset layout (`internal/kit/payload/`), Go embed approach, and PowerShell parity. |
 | [05-roadmap.md](05-roadmap.md) | Four-week phased rollout: pulse-as-signal → hook host → skill pack → distribution package. |
+| [06-antropic-folder-survey.md](06-antropic-folder-survey.md) | Inventory of the seven repos under `C:\Users\Oleh\Documents\GitHub\Antropic\` and what to do with each. |
+| [07-openai-agents-sdk-patterns.md](07-openai-agents-sdk-patterns.md) | Translation report from `openai-agents-python` to this stack: 8 ranked patterns to port + 5 NOT to port + file pointers. |
+| [08-capability-gap-map.md](08-capability-gap-map.md) | 18 capability gaps vs. an agent-runtime feature set, with status / owner / effort / dependencies. |
+| [09-roadmap-v2.md](09-roadmap-v2.md) | Six-week v0.2 roadmap layered on `05-roadmap.md`: handoffs → RunState/HITL → tracing → sessions → distribution. |
 
 ## Companion docs (other repos)
 
