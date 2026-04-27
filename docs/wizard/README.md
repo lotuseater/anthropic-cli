@@ -23,6 +23,7 @@ two installers (PowerShell + an in-tree `ant kit` Go subcommand).
 | [07-openai-agents-sdk-patterns.md](07-openai-agents-sdk-patterns.md) | Translation report from `openai-agents-python` to this stack: 8 ranked patterns to port + 5 NOT to port + file pointers. |
 | [08-capability-gap-map.md](08-capability-gap-map.md) | 18 capability gaps vs. an agent-runtime feature set, with status / owner / effort / dependencies. |
 | [09-roadmap-v2.md](09-roadmap-v2.md) | Six-week v0.2 roadmap layered on `05-roadmap.md`: handoffs → RunState/HITL → tracing → sessions → distribution. |
+| [10-implementation-checklist.md](10-implementation-checklist.md) | File-level Monday-morning checklist: per-item files to touch, dependencies, verification command, rollback path. |
 
 ## Companion docs (other repos)
 
